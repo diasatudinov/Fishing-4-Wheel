@@ -1,44 +1,81 @@
+//
+//  PieChartView.swift
+//  Fishing 4 Wheel
+//
+//
+
+import SwiftUI
+import Charts
+
 struct PieChartView: View {
     let values: [Int]
     let colors: [Color]
     
-    private var total: Double {
-        Double(max(values.reduce(0, +), 1))
+    private var total: Int {
+        values.reduce(0, +)
     }
     
     var body: some View {
         GeometryReader { geo in
             let size = min(geo.size.width, geo.size.height)
-            let lineWidth = size * 0.48
+            let rect = CGRect(origin: .zero, size: CGSize(width: size, height: size))
             
             ZStack {
-                ForEach(Array(values.enumerated()), id: \.offset) { index, value in
-                    let start = startAngle(for: index)
-                    let end = endAngle(for: index)
+                if total > 0 {
+                    ForEach(Array(values.enumerated()), id: \.offset) { index, value in
+                        PieSlice(
+                            startAngle: startAngle(for: index),
+                            endAngle: endAngle(for: index)
+                        )
+                        .fill(colors[index % colors.count])
+                    }
                     
                     Circle()
-                        .trim(from: start, to: end)
-                        .stroke(
-                            colors[index % colors.count],
-                            style: StrokeStyle(lineWidth: lineWidth, lineCap: .butt, lineJoin: .round)
-                        )
-                        .rotationEffect(.degrees(-90))
+                        .stroke(Color.green, lineWidth: 3)
+                } else {
+                    Circle()
+                        .fill(Color.gray.opacity(0.2))
+                    
+                    Circle()
+                        .stroke(Color.green, lineWidth: 3)
                 }
-                
-                Circle()
-                    .stroke(Color.green, lineWidth: 3)
             }
-            .frame(width: size, height: size)
+            .frame(width: rect.width, height: rect.height)
         }
+        .aspectRatio(1, contentMode: .fit)
     }
     
-    private func startAngle(for index: Int) -> CGFloat {
-        let previous = values.prefix(index).reduce(0, +)
-        return CGFloat(Double(previous) / total)
+    private func startAngle(for index: Int) -> Angle {
+        let previousSum = values.prefix(index).reduce(0, +)
+        let degrees = (Double(previousSum) / Double(total)) * 360 - 90
+        return .degrees(degrees)
     }
     
-    private func endAngle(for index: Int) -> CGFloat {
-        let current = values.prefix(index + 1).reduce(0, +)
-        return CGFloat(Double(current) / total)
+    private func endAngle(for index: Int) -> Angle {
+        let currentSum = values.prefix(index + 1).reduce(0, +)
+        let degrees = (Double(currentSum) / Double(total)) * 360 - 90
+        return .degrees(degrees)
+    }
+}
+
+struct PieSlice: Shape {
+    let startAngle: Angle
+    let endAngle: Angle
+    
+    func path(in rect: CGRect) -> Path {
+        let center = CGPoint(x: rect.midX, y: rect.midY)
+        let radius = min(rect.width, rect.height) / 2
+        
+        var path = Path()
+        path.move(to: center)
+        path.addArc(
+            center: center,
+            radius: radius,
+            startAngle: startAngle,
+            endAngle: endAngle,
+            clockwise: false
+        )
+        path.closeSubpath()
+        return path
     }
 }

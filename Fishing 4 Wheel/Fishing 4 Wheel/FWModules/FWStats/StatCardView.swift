@@ -1,3 +1,11 @@
+//
+//  StatCardView.swift
+//  Fishing 4 Wheel
+//
+//
+
+import SwiftUI
+
 struct StatCardView: View {
     let title: String
     let value: String
@@ -9,7 +17,7 @@ struct StatCardView: View {
         HStack(spacing: 12) {
             VStack(alignment: .leading, spacing: 8) {
                 Text(title)
-                    .font(.system(size: 17, weight: .black, design: .rounded))
+                    .font(.system(size: 18, weight: .black, design: .rounded))
                     .foregroundColor(Color(red: 0.48, green: 0.40, blue: 0.67))
                 
                 Text(value)
@@ -28,12 +36,6 @@ struct StatCardView: View {
             Spacer()
             
             ZStack {
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(
-                        style: StrokeStyle(lineWidth: 2, dash: [4, 3])
-                    )
-                    .foregroundColor(.blue)
-                    .frame(width: 70, height: 70)
                 
                 if let trailingAssetName {
                     Image(trailingAssetName)
@@ -50,8 +52,14 @@ struct StatCardView: View {
             }
         }
         .padding(14)
-        .frame(maxWidth: .infinity, minHeight: 110)
-        .background(cardBackground)
+        .frame(maxWidth: .infinity, minHeight: 130)
+        .background {
+            Image(.statsBgFW)
+                .resizable()
+                .scaledToFit()
+                
+        }
+        
     }
     
     private var cardBackground: some View {
@@ -62,4 +70,8 @@ struct StatCardView: View {
                     .stroke(Color(red: 0.25, green: 0.23, blue: 0.55), lineWidth: 2)
             )
     }
+}
+
+#Preview {
+    FWStatsView(viewModel: FWSpinViewModel())
 }

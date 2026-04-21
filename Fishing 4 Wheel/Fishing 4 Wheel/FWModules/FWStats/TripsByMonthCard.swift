@@ -1,3 +1,11 @@
+//
+//  TripsByMonthCard.swift
+//  Fishing 4 Wheel
+//
+//
+
+import SwiftUI
+
 struct TripsByMonthCard: View {
     let stats: [MonthTripStat]
     

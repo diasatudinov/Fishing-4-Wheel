@@ -1,4 +1,12 @@
+//
+//  MonthTripStat.swift
+//  Fishing 4 Wheel
+//
+//
+
+
 import Foundation
+import SwiftUI
 
 struct MonthTripStat: Identifiable {
     let id = UUID()

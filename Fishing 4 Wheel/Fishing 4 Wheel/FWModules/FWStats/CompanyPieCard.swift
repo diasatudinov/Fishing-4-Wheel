@@ -1,3 +1,12 @@
+//
+//  CompanyPieCard.swift
+//  Fishing 4 Wheel
+//
+//
+
+import SwiftUI
+import Charts
+
 struct CompanyPieCard: View {
     let stats: [CompanyShareStat]
     

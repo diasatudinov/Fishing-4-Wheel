@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "duration_untilLunch.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "statsBgFW.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

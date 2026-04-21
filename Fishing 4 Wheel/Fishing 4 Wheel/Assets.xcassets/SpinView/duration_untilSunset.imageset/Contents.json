@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "duration_untilSunset.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

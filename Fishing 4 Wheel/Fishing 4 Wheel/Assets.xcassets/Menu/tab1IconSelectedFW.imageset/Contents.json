@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "tab1IconSelectedFW.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
